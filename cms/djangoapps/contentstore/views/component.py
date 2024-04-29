@@ -471,7 +471,7 @@ def _get_item_in_course(request, usage_key):
 
 
 @login_required
-def component_handler(request, usage_key_string, handler, suffix=''):
+def component_handler(request, usage_key_string, handler, suffix='', streaming=False):
     """
     Dispatch an AJAX action to an xblock
 
@@ -479,6 +479,7 @@ def component_handler(request, usage_key_string, handler, suffix=''):
         usage_id: The usage-id of the block to dispatch to
         handler (str): The handler to execute
         suffix (str): The remainder of the url to be passed to the handler
+        streaming (bool): Uses Django StreamingHTTPRequest when set True
 
     Returns:
         :class:`django.http.HttpResponse`: The response from the handler, converted to a
@@ -521,7 +522,7 @@ def component_handler(request, usage_key_string, handler, suffix=''):
             handler
         )
 
-    return webob_to_django_response(resp)
+    return webob_to_django_response(resp, streaming)
 
 
 def get_unit_tags(usage_key):
