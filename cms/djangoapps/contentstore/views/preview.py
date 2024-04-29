@@ -56,7 +56,7 @@ log = logging.getLogger(__name__)
 
 @login_required
 @xframe_options_exempt
-def preview_handler(request, usage_key_string, handler, suffix=''):
+def preview_handler(request, usage_key_string, handler, suffix='', streaming=False):
     """
     Dispatch an AJAX action to an xblock
 
@@ -91,7 +91,7 @@ def preview_handler(request, usage_key_string, handler, suffix=''):
         log.exception("error processing ajax call")
         raise
 
-    return webob_to_django_response(resp)
+    return webob_to_django_response(resp, streaming)
 
 
 def handler_url(block, handler_name, suffix='', query='', thirdparty=False):  # lint-amnesty, pylint: disable=unused-argument
