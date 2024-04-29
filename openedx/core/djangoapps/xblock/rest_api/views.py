@@ -110,7 +110,7 @@ def get_handler_url(request, usage_key_str, handler_name):
 # and https://github.com/openedx/XBlock/pull/383 for context.
 @csrf_exempt
 @xframe_options_exempt
-def xblock_handler(request, user_id, secure_token, usage_key_str, handler_name, suffix=None):
+def xblock_handler(request, user_id, secure_token, usage_key_str, handler_name, suffix=None, streaming=False):
     """
     Run an XBlock's handler and return the result
 
@@ -160,7 +160,7 @@ def xblock_handler(request, user_id, secure_token, usage_key_str, handler_name, 
     block = load_block(usage_key, user)
     # Run the handler, and save any resulting XBlock field value changes:
     response_webob = block.handle(handler_name, request_webob, suffix)
-    response = webob_to_django_response(response_webob)
+    response = webob_to_django_response(response_webob, streaming)
     return response
 
 
