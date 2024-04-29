@@ -885,7 +885,7 @@ def get_block_by_usage_id(request, course_id, usage_id, disable_staff_debug_info
     return instance, tracking_context
 
 
-def _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=None):
+def _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=None, streaming=False):
     """
     Invoke an XBlock handler, either authenticated or not.
 
@@ -979,7 +979,7 @@ def _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course
             log.exception("error executing xblock handler")
             raise
 
-    return webob_to_django_response(resp)
+    return webob_to_django_response(resp, streaming)
 
 
 @api_view(['GET'])
