@@ -63,6 +63,7 @@ def preview_handler(request, usage_key_string, handler, suffix='', streaming=Fal
     usage_key_string: The usage_key_string-id of the block to dispatch to, passed through `quote_slashes`
     handler: The handler to execute
     suffix: The remainder of the url to be passed to the handler
+    streming: Uses Django StreamingHTTPRequest when set True
     """
     usage_key = UsageKey.from_string(usage_key_string)
 
